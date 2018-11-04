@@ -1,0 +1,97 @@
+int P0 = 0;
+int P2 = 0;
+int P3 = 0;
+int P4 = 0;
+int P5 = 0;
+int decod = 0;
+
+void portaOU(int P0, int P2)
+{
+  digitalWrite(6, (P0 || P2));
+}
+
+void portaE(int P0, int P2)
+{
+  digitalWrite(6, (P0 && P2));
+}
+
+void portaNAO(int P0, int P2)
+{
+  digitalWrite(6, (!P0));
+}
+
+void portaNOU(int P0, int P2)
+{
+  digitalWrite(6, !(P0 || P2));
+}
+
+void portaNE(int P0, int P2)
+{
+  digitalWrite(6, !(P0 && P2));
+}
+
+void portaXOU(int P0, int P2)
+{
+  int v1 = 0;
+  int v2 = 0;
+  v1 = (!P0) && P2;
+  v2 = P0 && (!P2);
+  digitalWrite(6, (v1 || v2));
+}
+
+void portaNXOU(int P0, int P2)
+{
+  int v1 = 0;
+  int v2 = 0;
+  v1 = (!P0) && (!P2);
+  v2 = P0 && P2;
+  digitalWrite(6, (v1 || v2));
+}
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(2, INPUT);
+  pinMode(3, INPUT);
+  pinMode(4, INPUT);
+  pinMode(5, INPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, INPUT);
+}
+
+void loop()
+{
+
+  P3 = digitalRead(3);
+  P4 = digitalRead(4);
+  P5 = digitalRead(5);
+  P0 = digitalRead(7);
+  P2 = digitalRead(2);
+  decod = ((P3 * 1) + (P4 * 2) + (P5 * 4));
+  Serial.print(P0);
+  Serial.print(P2);
+  switch (decod)
+  {
+    case 0: portaOU(P0, P2);
+      break;
+
+    case 1: portaE(P0, P2);
+      break;
+
+    case 2: portaNAO(P0, P2);
+      break;
+
+    case 3: portaNOU(P0, P2);
+      break;
+
+    case 4: portaNE(P0, P2);
+      break;
+
+    case 5: portaXOU(P0, P2);
+      break;
+
+    case 6: portaNXOU(P0, P2);
+      break;
+
+  }
+}
