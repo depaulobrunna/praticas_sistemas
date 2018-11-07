@@ -68,8 +68,11 @@ void loop()
   P0 = digitalRead(7);
   P2 = digitalRead(2);
   decod = ((P3 * 1) + (P4 * 2) + (P5 * 4));
+  Serial.print("\nEntrada 1:\n");
   Serial.print(P0);
+  Serial.print("\nEntrada 2:\n");
   Serial.print(P2);
+  delay(500);
   switch (decod)
   {
     case 0: portaOU(P0, P2);
